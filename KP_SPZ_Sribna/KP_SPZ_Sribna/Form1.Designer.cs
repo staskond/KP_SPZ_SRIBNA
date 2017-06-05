@@ -113,7 +113,7 @@
             // 
             // btConnect
             // 
-            this.btConnect.Location = new System.Drawing.Point(12, 198);
+            this.btConnect.Location = new System.Drawing.Point(11, 193);
             this.btConnect.Name = "btConnect";
             this.btConnect.Size = new System.Drawing.Size(216, 23);
             this.btConnect.TabIndex = 8;
@@ -122,7 +122,7 @@
             // 
             // btDiconnect
             // 
-            this.btDiconnect.Location = new System.Drawing.Point(12, 227);
+            this.btDiconnect.Location = new System.Drawing.Point(11, 222);
             this.btDiconnect.Name = "btDiconnect";
             this.btDiconnect.Size = new System.Drawing.Size(216, 23);
             this.btDiconnect.TabIndex = 9;
@@ -150,7 +150,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(239, 262);
+            this.ClientSize = new System.Drawing.Size(239, 254);
             this.Controls.Add(this.cbParity);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btDiconnect);

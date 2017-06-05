@@ -21,6 +21,7 @@ namespace KP_SPZ_Sribna
             SerialPort SP = new SerialPort();
             //SP.PortName = "COM1";
             //SP.Open();
+            //nupSizeDataBlock.Value = 256;
             SP.DataReceived += button1_Click;
             cbSelectCOM.Items.AddRange(SerialPort.GetPortNames());//отображаем количество возможных портов
             cbSelectCOM.SelectedIndex = 0;
@@ -115,7 +116,8 @@ namespace KP_SPZ_Sribna
                         SP.StopBits = StopBits.Two;
                     }
                     else SP.StopBits = StopBits.None;
-                    btConnect.Enabled = false;
+
+                    BlockControllView(false);
                     SP.Open();
                 }
                 catch(ArgumentException e1)
@@ -124,7 +126,7 @@ namespace KP_SPZ_Sribna
                     {
                         SP.Close();
                     }
-                    btConnect.Enabled = true;
+                    BlockControllView(true);
                     MessageBox.Show(e1.Message);
                 }
                 catch(Exception e2)
@@ -133,7 +135,7 @@ namespace KP_SPZ_Sribna
                     {
                         SP.Close();
                     }
-                    btConnect.Enabled = true;
+                    BlockControllView(true);
                     MessageBox.Show(e2.Message);
                 }
                 finally
@@ -147,11 +149,19 @@ namespace KP_SPZ_Sribna
                 {
                     SP.Close();
                 }
-                btConnect.Enabled = true;
+                BlockControllView(true);
             };
         }
 
-
+        private void BlockControllView(bool val)
+        {
+            cbByteSize.Enabled = val;
+            cbParity.Enabled = val;
+            cbSelectCOM.Enabled = val;
+            cbStopBit.Enabled = val;
+            cbBoudRate.Enabled = val;
+            btConnect.Enabled = val;
+        }
 
         private void cbSelectCOM_SelectedIndexChanged(object sender, EventArgs e)
         {
