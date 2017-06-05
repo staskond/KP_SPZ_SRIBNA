@@ -42,7 +42,7 @@
             this.nud_BufferSize = new System.Windows.Forms.NumericUpDown();
             this.rtb_DataString = new System.Windows.Forms.RichTextBox();
             this.rtb_DataBit = new System.Windows.Forms.RichTextBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.rtb_output = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -182,13 +182,13 @@
             this.rtb_DataBit.TabIndex = 14;
             this.rtb_DataBit.Text = "";
             // 
-            // richTextBox1
+            // rtb_output
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(237, 150);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(346, 36);
-            this.richTextBox1.TabIndex = 15;
-            this.richTextBox1.Text = "";
+            this.rtb_output.Location = new System.Drawing.Point(237, 153);
+            this.rtb_output.Name = "rtb_output";
+            this.rtb_output.Size = new System.Drawing.Size(346, 60);
+            this.rtb_output.TabIndex = 15;
+            this.rtb_output.Text = "";
             // 
             // label1
             // 
@@ -224,7 +224,7 @@
             this.ClientSize = new System.Drawing.Size(595, 254);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.rtb_output);
             this.Controls.Add(this.rtb_DataBit);
             this.Controls.Add(this.rtb_DataString);
             this.Controls.Add(this.nud_BufferSize);
@@ -264,7 +264,7 @@
         private System.Windows.Forms.NumericUpDown nud_BufferSize;
         private System.Windows.Forms.RichTextBox rtb_DataString;
         private System.Windows.Forms.RichTextBox rtb_DataBit;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox rtb_output;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;

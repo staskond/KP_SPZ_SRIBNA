@@ -195,9 +195,59 @@ namespace KP_SPZ_Sribna
             port.Close();
             rtb_DataString.Text = ReadDate;
             rtb_DataBit.Text = tempString;
+            StringBuilder rtb_string = new StringBuilder();
+            rtb_string.Append("Количество единичных бит: ");
+            rtb_string.Append(GetCounOneBit(ref bitValToInt).ToString());
+            rtb_string.Append("\nКоличество нулевых бит: ");
+            rtb_string.Append(GetCounOneBit(ref bitValToInt).ToString());
+            rtb_string.Append("\nМаксимальная последовательность нулевых бит: ");
+            rtb_string.Append(GetMaxZeroBitSequence(ref bitValToInt).ToString());
+            rtb_string.Append("\nМаксимальная последовательность единичных бит: ");
+            rtb_string.Append(GetMaxSingleBitSequence(ref bitValToInt).ToString());
+            rtb_string.Append("\nСреднее арифметическое всех бит: ");
+            rtb_string.Append(GetAverage(ref bitValToInt).ToString());
+            rtb_output.Text = rtb_string.ToString();
             BlockControllView(true);
             MessageBox.Show("Пакет данных успешно принят");
 
+        }
+
+        public int GetMaxZeroBitSequence(ref List<int> val)
+        {
+            int now = 0;
+            int max = 1;
+            foreach(int a in val)
+            {
+                if (a == 0)
+                {
+                    now += 1;
+                    if (now > max)
+                    {
+                        max = now;
+                    }
+                }
+                else now = 0;
+            }
+            return max;
+        }
+
+        public int GetMaxSingleBitSequence(ref List<int> val)
+        {
+            int now = 0;
+            int max = 1;
+            foreach(int a in val)
+            {
+                if (a == 1)
+                {
+                    now += 1;
+                    if (now > max)
+                    {
+                        max = now;
+                    }
+                }
+                else now = 0;
+            }
+            return max;
         }
 
         public int GetCounZeroBit(ref List<int> val)
@@ -205,7 +255,7 @@ namespace KP_SPZ_Sribna
             int result = 0;
             foreach (int a in val)
             {
-                if (a = 0)
+                if (a == 0)
                     result += 1;
             }
             return result;
@@ -216,19 +266,22 @@ namespace KP_SPZ_Sribna
             int result = 0;
             foreach(int a in val)
             {
-                if (a = 0)
+                if (a == 0)
                     result += 1;
             }
             return result;
         }
+
         private double GetAverage(ref List <int>val)
         {
-            int tmp = 0; ;
+            int tmp = 0; 
             foreach(int a in val)
             {
                 tmp += a;
             }
-            return tmp / val.Count;
+            double tmp1 = ((tmp*1000000) / val.Count);
+            tmp1 = tmp1 / 1000000;
+            return tmp1;
         }
 
 
