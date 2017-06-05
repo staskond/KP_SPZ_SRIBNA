@@ -15,30 +15,48 @@ namespace KP_SPZ_Sribna
     public partial class Form1 : Form
     {
         
-        string stroka = "";
         public Form1()
         {
             InitializeComponent();
-            //byte[] aaa = new byte[28];
-            //SerialPort bbb = new SerialPort("COM1");
-            //bbb.Open();
-            //bbb.Read(aaa, 4, 32);
-            SerialPort serialPort1 = new SerialPort();
-            serialPort1.PortName = "COM1"; //Указываем наш порт - в данном случае COM1.
-            serialPort1.BaudRate = 9600; //указываем скорость.
-            serialPort1.DataBits = 8;
-            serialPort1.Open(); //Открываем порт.
             cbSelectCOM.Items.AddRange(SerialPort.GetPortNames());//отображаем количество возможных портов
+            cbSelectCOM.SelectedIndex = 0;
+            cbBoudRate.Items.Add("50");
+            cbBoudRate.Items.Add("75");
+            cbBoudRate.Items.Add("150");
+            cbBoudRate.Items.Add("300");
+            cbBoudRate.Items.Add("1200");
+            cbBoudRate.Items.Add("2400");
+            cbBoudRate.Items.Add("4800");
+            cbBoudRate.Items.Add("9600");
+            cbBoudRate.Items.Add("19200");
+            cbBoudRate.Items.Add("38400");
+            cbBoudRate.Items.Add("57600");
+            cbBoudRate.Items.Add("115200");
+            cbBoudRate.SelectedIndex = 7;
+
+            cbByteSize.Items.Add("5");
+            cbByteSize.Items.Add("6");
+            cbByteSize.Items.Add("7");
+            cbByteSize.Items.Add("8");
+            cbByteSize.SelectedIndex = 3;
+
+            cbStopBit.Items.Add("1");
+            cbStopBit.Items.Add("1.5");
+            cbStopBit.Items.Add("2");
+            cbStopBit.SelectedIndex = 0;
+
+            cbParity.Items.Add("отсутствует");
+            cbParity.Items.Add("четный");
+            cbParity.Items.Add("нечетный");
+            cbParity.SelectedIndex = 0;
+
+
+            btConnect.Click += (object sender, EventArgs e) =>
+            {
+                //cbBoudRate.se
+            };
         }
 
-        private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
-        {
-            this.Invoke(new EventHandler(DoUpdate));
-        }
-        private void DoUpdate(object s, EventArgs e)
-        {
-            stroka = stroka + serialPort1.ReadExisting();
-        }
 
 
         private void cbSelectCOM_SelectedIndexChanged(object sender, EventArgs e)

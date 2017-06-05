@@ -38,6 +38,8 @@
             this.cbStopBit = new System.Windows.Forms.ComboBox();
             this.btConnect = new System.Windows.Forms.Button();
             this.bDiconnect = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cbParity = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // cbSelectCOM
@@ -111,7 +113,7 @@
             // 
             // btConnect
             // 
-            this.btConnect.Location = new System.Drawing.Point(15, 162);
+            this.btConnect.Location = new System.Drawing.Point(12, 198);
             this.btConnect.Name = "btConnect";
             this.btConnect.Size = new System.Drawing.Size(216, 23);
             this.btConnect.TabIndex = 8;
@@ -120,18 +122,37 @@
             // 
             // bDiconnect
             // 
-            this.bDiconnect.Location = new System.Drawing.Point(15, 191);
+            this.bDiconnect.Location = new System.Drawing.Point(12, 227);
             this.bDiconnect.Name = "bDiconnect";
             this.bDiconnect.Size = new System.Drawing.Size(216, 23);
             this.bDiconnect.TabIndex = 9;
             this.bDiconnect.Text = "Отключится";
             this.bDiconnect.UseVisualStyleBackColor = true;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(15, 157);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(55, 13);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Паритет: ";
+            // 
+            // cbParity
+            // 
+            this.cbParity.FormattingEnabled = true;
+            this.cbParity.Location = new System.Drawing.Point(110, 157);
+            this.cbParity.Name = "cbParity";
+            this.cbParity.Size = new System.Drawing.Size(121, 21);
+            this.cbParity.TabIndex = 11;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(239, 262);
+            this.Controls.Add(this.cbParity);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.bDiconnect);
             this.Controls.Add(this.btConnect);
             this.Controls.Add(this.cbStopBit);
@@ -161,6 +182,8 @@
         private System.Windows.Forms.ComboBox cbStopBit;
         private System.Windows.Forms.Button btConnect;
         private System.Windows.Forms.Button bDiconnect;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox cbParity;
     }
 }
 
