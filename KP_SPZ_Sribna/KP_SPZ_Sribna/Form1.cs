@@ -19,25 +19,26 @@ namespace KP_SPZ_Sribna
     public partial class Form1 : Form
     {
         Series ChartZeroSer, ChartOneSer, ChartMaxZeroBit, ChartMaxOneBit;
-        List<byte> buffer = new List<byte>();
         public Form1()
         {
+            #region InitializeComponent
             InitializeComponent();
-            SerialPort SP = new SerialPort();
-            this.chart1.Palette = ChartColorPalette.SeaGreen;
-            this.chart1.Series.RemoveAt(0);
-            this.chart2.Titles.Add("Maximus sequence of bits.");
-            this.chart2.Series.RemoveAt(0);
-            this.chart1.Titles.Add("Bits");
+            SerialPort SP = new SerialPort();//инициализация объекта SerialPort
+            SP.DataReceived += EventCom;//подписка нашей функции на событие прихода данных в порт
+            this.chart1.Palette = ChartColorPalette.SeaGreen;//устанавливаем цвет графика
+            this.chart1.Series.RemoveAt(0);// удаляем созданный по умолчанию элемент
+            this.chart2.Titles.Add("Maximus sequence of bits.");//устанавливаем название графика
+            this.chart2.Series.RemoveAt(0);// удаляем созданный по умолчанию элемент
+            this.chart1.Titles.Add("Bits");//устанавливаем название графика
+            //добавляем столбцы которые будут отображаться на диаграмме
             ChartZeroSer = this.chart1.Series.Add("Nums of Zero bits");
             ChartOneSer = this.chart1.Series.Add("Nums of one bits");
             ChartMaxOneBit = this.chart2.Series.Add("Max seq one bits.");
             ChartMaxZeroBit = this.chart2.Series.Add("Max Seq zero bits.");
 
-
-            SP.DataReceived += EventCom;
-            cbSelectCOM.Items.AddRange(SerialPort.GetPortNames());//отображаем количество возможных портов
-            cbSelectCOM.SelectedIndex = 0;
+            cbSelectCOM.Items.AddRange(SerialPort.GetPortNames());//добавляем возможные порты в comboBox
+            cbSelectCOM.SelectedIndex = 0;//устанавливаем индекс элемента по умолчанию
+            //поштучно добавляем все элементы в comboBox предназначенный для выбора скорости передачи
             cbBoudRate.Items.Add("50");
             cbBoudRate.Items.Add("75");
             cbBoudRate.Items.Add("150");
@@ -50,8 +51,8 @@ namespace KP_SPZ_Sribna
             cbBoudRate.Items.Add("38400");
             cbBoudRate.Items.Add("57600");
             cbBoudRate.Items.Add("115200");
-            cbBoudRate.SelectedIndex = 7;
-
+            cbBoudRate.SelectedIndex = 7;//устанавливаем элемент заданный по умолчанию
+            
             cbByteSize.Items.Add("5");
             cbByteSize.Items.Add("6");
             cbByteSize.Items.Add("7");
@@ -59,7 +60,6 @@ namespace KP_SPZ_Sribna
             cbByteSize.SelectedIndex = 3;
 
             cbStopBit.Items.Add("1");
-            cbStopBit.Items.Add("1.5");
             cbStopBit.Items.Add("2");
             cbStopBit.SelectedIndex = 0;
 
@@ -67,15 +67,17 @@ namespace KP_SPZ_Sribna
             cbParity.Items.Add("четный");
             cbParity.Items.Add("нечетный");
             cbParity.SelectedIndex = 0;
+#endregion InitializeComponent
 
             btConnect.Click += (object sender, EventArgs e) =>
             {
                 
                 try
                 {
-                    if (!(cbSelectCOM.Text.Equals("")))
+                    #region CheckToCorrectValue
+                    if (!(cbSelectCOM.Text.Equals("")))//проверяем наличия значение в comboBox для выбора порта
                     {
-                        SP.PortName = cbSelectCOM.Text;
+                        SP.PortName = cbSelectCOM.Text;//устанавливаем значение в свойство PortName из comboBox
                     }
                     else
                     {
@@ -119,29 +121,25 @@ namespace KP_SPZ_Sribna
                     {
                         SP.StopBits = StopBits.One;
                     }
-                    else if (cbStopBit.Text.Equals("1.5"))
-                    {
-                        SP.StopBits = StopBits.OnePointFive;
-                    }
                     else if (cbStopBit.Text.Equals("2"))
                     {
                         SP.StopBits = StopBits.Two;
                     }
                     else SP.StopBits = StopBits.None;
                     
-                    SP.ReadBufferSize = Convert.ToInt32(nud_BufferSize.Value);
-
+                    SP.ReadBufferSize = Convert.ToInt32(nud_BufferSize.Value);//устанавливаем размер буфера для считывания из формы domainUpDown
+#endregion CheckCorrectValue
                     BlockControllView(false);
                     SP.Open();
                 }
-                catch(ArgumentException e1)
+                catch(ArgumentException e1)//ловим исключение
                 {
-                    if (SP.IsOpen)
+                    if (SP.IsOpen)//если у нас порт открыт, то мы должны его закрыть
                     {
-                        SP.Close();
+                        SP.Close();//закрываем порт
                     }
-                    BlockControllView(true);
-                    MessageBox.Show(e1.Message);
+                    BlockControllView(true);//разблокируем элементы управления
+                    MessageBox.Show(e1.Message);//выводим информацию об ошибке
                 }
                 catch(Exception e2)
                 {
@@ -159,11 +157,11 @@ namespace KP_SPZ_Sribna
             };
             btDiconnect.Click += (object sender, EventArgs e) =>
             {
-                if (SP.IsOpen)
+                if (SP.IsOpen)//проверяем, открыт ли порт
                 {
-                    SP.Close();
+                    SP.Close();//закрываем порт
                 }
-                BlockControllView(true);
+                BlockControllView(true);//разблокируем управляющие элементы
             };
 
         }
@@ -187,56 +185,62 @@ namespace KP_SPZ_Sribna
         {
             try
             {
-                SerialPort port = (SerialPort)sender;
-                List<int> bitValToInt = new List<int>();
-                List<char> bitValInCharList = new List<char>();
+                #region readData
+                SerialPort port = (SerialPort)sender;//копируем данные из отправителя
+                List<int> bitValToInt = new List<int>();//коллекция интов для хранения всех битовых значений
+                List<char> bitValInCharList = new List<char>();//коллекция чаров для хранения данных переведенных из строки в битовом формате
                 StringBuilder sb = new StringBuilder();
-                string ReadData = port.ReadExisting();
-                if (ReadData.Length > nud_BufferSize.Value)
+                string ReadData = port.ReadExisting();//считываем данные пришедшие в порт
+                if (ReadData.Length > nud_BufferSize.Value)//проверяем, если количество символов в пришедшей стоке больше чем максимальный размер пакета
                 {
-                    ReadData = ReadData.Substring(0, Convert.ToInt32(nud_BufferSize.Value));
+                    ReadData = ReadData.Substring(0, Convert.ToInt32(nud_BufferSize.Value));//то обрезаем строку
                 }
-                foreach (byte b in Encoding.Unicode.GetBytes(ReadData))
-                    sb.Append(Convert.ToString(b, 2));
-                bitValToInt.Clear();
-                string tempString = sb.ToString();
-                bitValInCharList.AddRange(tempString.ToCharArray());
+                foreach (byte b in Encoding.Unicode.GetBytes(ReadData))//преобразовуем полученную строку
+                    sb.Append(Convert.ToString(b, 2));//в строку байт
+                //bitValToInt.Clear();//отчищаем массив интов
+                string tempString = sb.ToString();//записываем данные из объекта StringBuilder в обычную строку для дальнейших манипуляций
+                bitValInCharList.AddRange(tempString.ToCharArray());//преобразуем полученную байтовую строку в массив чаров и записываем его в коллекцию чаров
 
-                foreach (char v in bitValInCharList)
-                {
-                    if (v == '0')
+                foreach (char v in bitValInCharList)//преобразуем каждый отдельный элемент коллекции чарров
+                {//в int и записываем в коллекцию ont для дальнейших манипуляций
+                    if (v == '0')//если элемент коллекции равен 0
                     {
-                        bitValToInt.Add(0);
+                        bitValToInt.Add(0);//добавляем в коллекцию интов 0
                     }
-                    else bitValToInt.Add(1);
+                    else bitValToInt.Add(1);//если равен 1, то добавляем в коллекцию интов 1
                 }
+                #endregion readData
+
                 // port.Close();
-                rtb_DataString.Text = ReadData;
-                rtb_DataBit.Text = tempString;
-                StringBuilder rtb_string = new StringBuilder();
-                rtb_string.Append("Количество единичных бит: ");
-                rtb_string.Append(GetCounOneBit(ref bitValToInt).ToString());
+                #region setDataToWindow
+                rtb_DataString.Text = ReadData;//присваиваем элементу отображения данные которые мы считали из порта
+                rtb_DataBit.Text = tempString;//присваиваем другому элементу отображения данные в битовом формате
+                StringBuilder rtb_string = new StringBuilder();//создаем новый экземпляр StringBuilder
+                rtb_string.Append("Количество единичных бит: ");//добавляем в конец элемента StringBuilder строку
+                rtb_string.Append(GetCountBit(ref bitValToInt, 1).ToString());//вызываем функцию для считывания количества единичных бит и добавления результата в конец строки
                 rtb_string.Append("\nКоличество нулевых бит: ");
-                rtb_string.Append(GetCounZeroBit(ref bitValToInt).ToString());
+                rtb_string.Append(GetCountBit(ref bitValToInt, 0).ToString());
                 rtb_string.Append("\nМаксимальная последовательность нулевых бит: ");
-                rtb_string.Append(GetMaxZeroBitSequence(ref bitValToInt).ToString());
+                rtb_string.Append(GetMaxBitSequence(ref bitValToInt, 0).ToString());
                 rtb_string.Append("\nМаксимальная последовательность единичных бит: ");
-                rtb_string.Append(GetMaxSingleBitSequence(ref bitValToInt).ToString());
+                rtb_string.Append(GetMaxBitSequence(ref bitValToInt, 1).ToString());
                 rtb_string.Append("\nСреднее арифметическое всех бит: ");
                 rtb_string.Append(GetAverage(ref bitValToInt).ToString());
                 rtb_output.Text = rtb_string.ToString();
                 WriteToFile(ReadData, tempString, rtb_string.ToString());
                 //BlockControllView(true);
                 //MessageBox.Show("Пакет данных успешно принят");
-                ChartZeroSer.Points.Clear();
+                ChartZeroSer.Points.Clear();//очищаем данные графика
                 ChartMaxZeroBit.Points.Clear();
                 ChartMaxOneBit.Points.Clear();
                 ChartOneSer.Points.Clear();
-                ChartZeroSer.Points.Add(GetCounZeroBit(ref bitValToInt));
-                ChartOneSer.Points.Add(GetCounOneBit(ref bitValToInt));
-                ChartMaxZeroBit.Points.Add(GetMaxSingleBitSequence(ref bitValToInt));
-                ChartMaxOneBit.Points.Add(GetMaxZeroBitSequence(ref bitValToInt));
-            }catch(Exception e1)
+                ChartZeroSer.Points.Add(GetCountBit(ref bitValToInt, 0));//добавляем новые данные(точки, значения) графика
+                ChartOneSer.Points.Add(GetCountBit(ref bitValToInt, 1));
+                ChartMaxZeroBit.Points.Add(GetMaxBitSequence(ref bitValToInt, 0));
+                ChartMaxOneBit.Points.Add(GetMaxBitSequence(ref bitValToInt, 1));
+                #endregion setDataToWindow
+            }
+            catch (Exception e1)
             {
                 MessageBox.Show(e1.Message);
                 
@@ -244,13 +248,13 @@ namespace KP_SPZ_Sribna
 
         }
 
-        private int GetMaxZeroBitSequence(ref List<int> val)
+        private int GetMaxBitSequence(ref List<int> val, int value)//функция для получения максимальной последовательности нулевых бит
         {
-            int now = 0;
-            int max = 1;
+            int now = 0;//переменная для хранения текущего значения текущее значение
+            int max = 1;//переменная для хранения максимального значения
             foreach(int a in val)
             {
-                if (a == 0)
+                if (a == value)
                 {
                     now += 1;
                     if (now > max)
@@ -263,54 +267,28 @@ namespace KP_SPZ_Sribna
             return max;
         }
 
-        private int GetMaxSingleBitSequence(ref List<int> val)
-        {
-            int now = 0;
-            int max = 1;
-            foreach(int a in val)
-            {
-                if (a == 1)
-                {
-                    now += 1;
-                    if (now > max)
-                    {
-                        max = now;
-                    }
-                }
-                else now = 0;
-            }
-            return max;
-        }
 
-        private int GetCounZeroBit(ref List<int> val)
+        private int GetCountBit(ref List<int> val, int value)
         {
             int result = 0;
             foreach (int a in val)
             {
-                if (a == 0)
+                if (a == value)
                     result += 1;
             }
             return result;
         }
 
-        private int GetCounOneBit(ref List<int> val)
+        private double GetAverage(ref List <int>val)//получение среднего арифметического в последовательности бит
         {
-            int result = 0;
-            foreach(int a in val)
-            {
-                if (a == 1)
-                    result += 1;
-            }
-            return result;
-        }
-
-        private double GetAverage(ref List <int>val)
-        {
-            int tmp = 0; 
-            foreach(int a in val)
+            int tmp = 0; //переменная для суммы всех значений
+            foreach(int a in val)//суммируем все значения в цикле
             {
                 tmp += a;
             }
+            //умнажаем на большее 1000000 для того чтобы поделить на меньшее.
+            //Если мы поделем большее число на меньшее то в результате получим 0
+            //а таким образом мы получем нормальное значение после обратного деления на 10000000
             double tmp1 = ((tmp*1000000) / val.Count);
             tmp1 = tmp1 / 1000000;
             return tmp1;
