@@ -37,7 +37,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.cbStopBit = new System.Windows.Forms.ComboBox();
             this.btConnect = new System.Windows.Forms.Button();
-            this.bDiconnect = new System.Windows.Forms.Button();
+            this.btDiconnect = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.cbParity = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
@@ -120,14 +120,14 @@
             this.btConnect.Text = "Подключится";
             this.btConnect.UseVisualStyleBackColor = true;
             // 
-            // bDiconnect
+            // btDiconnect
             // 
-            this.bDiconnect.Location = new System.Drawing.Point(12, 227);
-            this.bDiconnect.Name = "bDiconnect";
-            this.bDiconnect.Size = new System.Drawing.Size(216, 23);
-            this.bDiconnect.TabIndex = 9;
-            this.bDiconnect.Text = "Отключится";
-            this.bDiconnect.UseVisualStyleBackColor = true;
+            this.btDiconnect.Location = new System.Drawing.Point(12, 227);
+            this.btDiconnect.Name = "btDiconnect";
+            this.btDiconnect.Size = new System.Drawing.Size(216, 23);
+            this.btDiconnect.TabIndex = 9;
+            this.btDiconnect.Text = "Отключится";
+            this.btDiconnect.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
@@ -153,7 +153,7 @@
             this.ClientSize = new System.Drawing.Size(239, 262);
             this.Controls.Add(this.cbParity);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.bDiconnect);
+            this.Controls.Add(this.btDiconnect);
             this.Controls.Add(this.btConnect);
             this.Controls.Add(this.cbStopBit);
             this.Controls.Add(this.label4);
@@ -181,7 +181,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cbStopBit;
         private System.Windows.Forms.Button btConnect;
-        private System.Windows.Forms.Button bDiconnect;
+        private System.Windows.Forms.Button btDiconnect;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cbParity;
     }

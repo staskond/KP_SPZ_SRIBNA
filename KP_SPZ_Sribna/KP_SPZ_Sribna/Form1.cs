@@ -18,6 +18,10 @@ namespace KP_SPZ_Sribna
         public Form1()
         {
             InitializeComponent();
+            SerialPort SP = new SerialPort();
+            //SP.PortName = "COM1";
+            //SP.Open();
+            SP.DataReceived += button1_Click;
             cbSelectCOM.Items.AddRange(SerialPort.GetPortNames());//отображаем количество возможных портов
             cbSelectCOM.SelectedIndex = 0;
             cbBoudRate.Items.Add("50");
@@ -53,7 +57,97 @@ namespace KP_SPZ_Sribna
 
             btConnect.Click += (object sender, EventArgs e) =>
             {
-                //cbBoudRate.se
+                
+                try
+                {
+                    if (!(cbSelectCOM.Text.Equals("")))
+                    {
+                        SP.PortName = cbSelectCOM.Text;
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Недопустимое значение com порта");
+                    }
+
+                    if (!(cbBoudRate.Text.Equals("")))
+                    {
+                        SP.BaudRate = Convert.ToInt32(cbBoudRate.Text);
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Недопустимое значение скорости передачи данных.");
+                    }
+
+                    if (cbParity.Text.Equals("отсутствует"))
+                    {
+                        SP.Parity = Parity.None;
+                    }
+                    else if (cbParity.Text.Equals("четный"))
+                    {
+                        SP.Parity = Parity.Even;
+                    }
+                    else if (cbParity.Text.Equals("нечетный"))
+                    {
+                        SP.Parity = Parity.Odd;
+                    }
+                    else SP.Parity = Parity.None;
+
+                    if (!(cbByteSize.Text.Equals("")))
+                    {
+                        SP.DataBits = Convert.ToInt32(cbByteSize.Text);
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Недопустимое значение количества бит");
+                    }
+
+
+                    if (cbStopBit.Text.Equals("1"))
+                    {
+                        SP.StopBits = StopBits.One;
+                    }
+                    else if (cbStopBit.Text.Equals("1.5"))
+                    {
+                        SP.StopBits = StopBits.OnePointFive;
+                    }
+                    else if (cbStopBit.Text.Equals("2"))
+                    {
+                        SP.StopBits = StopBits.Two;
+                    }
+                    else SP.StopBits = StopBits.None;
+                    btConnect.Enabled = false;
+                    SP.Open();
+                }
+                catch(ArgumentException e1)
+                {
+                    if (SP.IsOpen)
+                    {
+                        SP.Close();
+                    }
+                    btConnect.Enabled = true;
+                    MessageBox.Show(e1.Message);
+                }
+                catch(Exception e2)
+                {
+                    if (SP.IsOpen)
+                    {
+                        SP.Close();
+                    }
+                    btConnect.Enabled = true;
+                    MessageBox.Show(e2.Message);
+                }
+                finally
+                {
+                    //SP.Close();
+                }
+            };
+            btDiconnect.Click += (object sender, EventArgs e) =>
+            {
+                if (SP.IsOpen)
+                {
+                    SP.Close();
+                }
+                btConnect.Enabled = true;
             };
         }
 
@@ -66,6 +160,7 @@ namespace KP_SPZ_Sribna
 
         private void button1_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("lol");
         }
     }
 }
