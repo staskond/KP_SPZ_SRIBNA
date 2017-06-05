@@ -16,10 +16,22 @@ namespace KP_SPZ_Sribna
     {
         public Form1()
         {
-            InitializeComponent();  
+            InitializeComponent();
+            //byte[] aaa = new byte[28];
+            //SerialPort bbb = new SerialPort("COM1");
+            //bbb.Open();
+            //bbb.Read(aaa, 4, 32);
             cbSelectCOM.Items.AddRange(SerialPort.GetPortNames());//отображаем количество возможных портов
-            
         }
 
+
+        private void cbSelectCOM_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+        }
     }
 }
