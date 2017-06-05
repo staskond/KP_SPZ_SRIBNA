@@ -129,7 +129,7 @@ namespace KP_SPZ_Sribna
                     }
                     else SP.StopBits = StopBits.None;
                     
-                    //SP.ReadBufferSize = Convert.ToInt32(nud_BufferSize.Value);
+                    SP.ReadBufferSize = Convert.ToInt32(nud_BufferSize.Value);
 
                     BlockControllView(false);
                     SP.Open();
@@ -176,7 +176,7 @@ namespace KP_SPZ_Sribna
             cbStopBit.Enabled = val;
             cbBoudRate.Enabled = val;
             btConnect.Enabled = val;
-            //nud_BufferSize.Enabled = val;
+            nud_BufferSize.Enabled = val;
         }
 
         private void cbSelectCOM_SelectedIndexChanged(object sender, EventArgs e)
@@ -185,50 +185,62 @@ namespace KP_SPZ_Sribna
         }
         private void EventCom(object sender, EventArgs e)
         {
-            SerialPort port = (SerialPort)sender;
-            List<int> bitValToInt = new List<int>();
-            List<char> bitValInCharList = new List<char>();
-            StringBuilder sb = new StringBuilder();
-            string ReadDate = port.ReadExisting();
-            foreach (byte b in Encoding.Unicode.GetBytes(ReadDate))
-                sb.Append(Convert.ToString(b, 2));
-            bitValToInt.Clear();
-            string tempString = sb.ToString(); 
-            bitValInCharList.AddRange(tempString.ToCharArray());
-            foreach(char v in bitValInCharList)
+            try
             {
-                if (v == '0')
+                SerialPort port = (SerialPort)sender;
+                List<int> bitValToInt = new List<int>();
+                List<char> bitValInCharList = new List<char>();
+                StringBuilder sb = new StringBuilder();
+                string ReadData = port.ReadExisting();
+                if (ReadData.Length > nud_BufferSize.Value)
                 {
-                    bitValToInt.Add(0);
+                    ReadData = ReadData.Substring(0, Convert.ToInt32(nud_BufferSize.Value));
                 }
-                else bitValToInt.Add(1);
+                foreach (byte b in Encoding.Unicode.GetBytes(ReadData))
+                    sb.Append(Convert.ToString(b, 2));
+                bitValToInt.Clear();
+                string tempString = sb.ToString();
+                bitValInCharList.AddRange(tempString.ToCharArray());
+
+                foreach (char v in bitValInCharList)
+                {
+                    if (v == '0')
+                    {
+                        bitValToInt.Add(0);
+                    }
+                    else bitValToInt.Add(1);
+                }
+                // port.Close();
+                rtb_DataString.Text = ReadData;
+                rtb_DataBit.Text = tempString;
+                StringBuilder rtb_string = new StringBuilder();
+                rtb_string.Append("Количество единичных бит: ");
+                rtb_string.Append(GetCounOneBit(ref bitValToInt).ToString());
+                rtb_string.Append("\nКоличество нулевых бит: ");
+                rtb_string.Append(GetCounZeroBit(ref bitValToInt).ToString());
+                rtb_string.Append("\nМаксимальная последовательность нулевых бит: ");
+                rtb_string.Append(GetMaxZeroBitSequence(ref bitValToInt).ToString());
+                rtb_string.Append("\nМаксимальная последовательность единичных бит: ");
+                rtb_string.Append(GetMaxSingleBitSequence(ref bitValToInt).ToString());
+                rtb_string.Append("\nСреднее арифметическое всех бит: ");
+                rtb_string.Append(GetAverage(ref bitValToInt).ToString());
+                rtb_output.Text = rtb_string.ToString();
+                WriteToFile(ReadData, tempString, rtb_string.ToString());
+                //BlockControllView(true);
+                //MessageBox.Show("Пакет данных успешно принят");
+                ChartZeroSer.Points.Clear();
+                ChartMaxZeroBit.Points.Clear();
+                ChartMaxOneBit.Points.Clear();
+                ChartOneSer.Points.Clear();
+                ChartZeroSer.Points.Add(GetCounZeroBit(ref bitValToInt));
+                ChartOneSer.Points.Add(GetCounOneBit(ref bitValToInt));
+                ChartMaxZeroBit.Points.Add(GetMaxSingleBitSequence(ref bitValToInt));
+                ChartMaxOneBit.Points.Add(GetMaxZeroBitSequence(ref bitValToInt));
+            }catch(Exception e1)
+            {
+                MessageBox.Show(e1.Message);
+                
             }
-           // port.Close();
-            rtb_DataString.Text = ReadDate;
-            rtb_DataBit.Text = tempString;
-            StringBuilder rtb_string = new StringBuilder();
-            rtb_string.Append("Количество единичных бит: ");
-            rtb_string.Append(GetCounOneBit(ref bitValToInt).ToString());
-            rtb_string.Append("\nКоличество нулевых бит: ");
-            rtb_string.Append(GetCounZeroBit(ref bitValToInt).ToString());
-            rtb_string.Append("\nМаксимальная последовательность нулевых бит: ");
-            rtb_string.Append(GetMaxZeroBitSequence(ref bitValToInt).ToString());
-            rtb_string.Append("\nМаксимальная последовательность единичных бит: ");
-            rtb_string.Append(GetMaxSingleBitSequence(ref bitValToInt).ToString());
-            rtb_string.Append("\nСреднее арифметическое всех бит: ");
-            rtb_string.Append(GetAverage(ref bitValToInt).ToString());
-            rtb_output.Text = rtb_string.ToString();
-            WriteToFile(ReadDate, tempString , rtb_string.ToString());
-            //BlockControllView(true);
-            //MessageBox.Show("Пакет данных успешно принят");
-            ChartZeroSer.Points.Clear();
-            ChartMaxZeroBit.Points.Clear();
-            ChartMaxOneBit.Points.Clear();
-            ChartOneSer.Points.Clear();
-            ChartZeroSer.Points.Add(GetCounZeroBit(ref bitValToInt));
-            ChartOneSer.Points.Add(GetCounOneBit(ref bitValToInt));
-            ChartMaxZeroBit.Points.Add(GetMaxSingleBitSequence(ref bitValToInt));
-            ChartMaxOneBit.Points.Add(GetMaxZeroBitSequence(ref bitValToInt));
 
         }
 
