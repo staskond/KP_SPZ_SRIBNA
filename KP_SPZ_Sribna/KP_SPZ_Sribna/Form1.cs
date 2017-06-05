@@ -10,21 +10,31 @@ using System.Windows.Forms;
 using System.IO.Ports;
 using System.Threading;
 using System.IO;
+using System.Windows.Forms.DataVisualization.Charting;
+using System.Diagnostics;
 
 //virtualSerialPortDriver
 namespace KP_SPZ_Sribna
 {
     public partial class Form1 : Form
     {
-        
+        Series ChartZeroSer, ChartOneSer, ChartMaxZeroBit, ChartMaxOneBit;
         List<byte> buffer = new List<byte>();
         public Form1()
         {
             InitializeComponent();
             SerialPort SP = new SerialPort();
-            //SP.PortName = "COM1";
-            //SP.Open();
-            //nupSizeDataBlock.Value = 256;
+            this.chart1.Palette = ChartColorPalette.SeaGreen;
+            this.chart1.Series.RemoveAt(0);
+            this.chart2.Titles.Add("Maximus sequence of bits.");
+            this.chart2.Series.RemoveAt(0);
+            this.chart1.Titles.Add("Bits");
+            ChartZeroSer = this.chart1.Series.Add("Nums of Zero bits");
+            ChartOneSer = this.chart1.Series.Add("Nums of one bits");
+            ChartMaxOneBit = this.chart2.Series.Add("Max seq one bits.");
+            ChartMaxZeroBit = this.chart2.Series.Add("Max Seq zero bits.");
+
+
             SP.DataReceived += EventCom;
             cbSelectCOM.Items.AddRange(SerialPort.GetPortNames());//отображаем количество возможных портов
             cbSelectCOM.SelectedIndex = 0;
@@ -118,8 +128,8 @@ namespace KP_SPZ_Sribna
                         SP.StopBits = StopBits.Two;
                     }
                     else SP.StopBits = StopBits.None;
-
-                    SP.ReadBufferSize = Convert.ToInt32(nud_BufferSize.Value);
+                    
+                    //SP.ReadBufferSize = Convert.ToInt32(nud_BufferSize.Value);
 
                     BlockControllView(false);
                     SP.Open();
@@ -166,7 +176,7 @@ namespace KP_SPZ_Sribna
             cbStopBit.Enabled = val;
             cbBoudRate.Enabled = val;
             btConnect.Enabled = val;
-            nud_BufferSize.Enabled = val;
+            //nud_BufferSize.Enabled = val;
         }
 
         private void cbSelectCOM_SelectedIndexChanged(object sender, EventArgs e)
@@ -193,14 +203,14 @@ namespace KP_SPZ_Sribna
                 }
                 else bitValToInt.Add(1);
             }
-            port.Close();
+           // port.Close();
             rtb_DataString.Text = ReadDate;
             rtb_DataBit.Text = tempString;
             StringBuilder rtb_string = new StringBuilder();
             rtb_string.Append("Количество единичных бит: ");
             rtb_string.Append(GetCounOneBit(ref bitValToInt).ToString());
             rtb_string.Append("\nКоличество нулевых бит: ");
-            rtb_string.Append(GetCounOneBit(ref bitValToInt).ToString());
+            rtb_string.Append(GetCounZeroBit(ref bitValToInt).ToString());
             rtb_string.Append("\nМаксимальная последовательность нулевых бит: ");
             rtb_string.Append(GetMaxZeroBitSequence(ref bitValToInt).ToString());
             rtb_string.Append("\nМаксимальная последовательность единичных бит: ");
@@ -209,8 +219,16 @@ namespace KP_SPZ_Sribna
             rtb_string.Append(GetAverage(ref bitValToInt).ToString());
             rtb_output.Text = rtb_string.ToString();
             WriteToFile(ReadDate, tempString , rtb_string.ToString());
-            BlockControllView(true);
-            MessageBox.Show("Пакет данных успешно принят");
+            //BlockControllView(true);
+            //MessageBox.Show("Пакет данных успешно принят");
+            ChartZeroSer.Points.Clear();
+            ChartMaxZeroBit.Points.Clear();
+            ChartMaxOneBit.Points.Clear();
+            ChartOneSer.Points.Clear();
+            ChartZeroSer.Points.Add(GetCounZeroBit(ref bitValToInt));
+            ChartOneSer.Points.Add(GetCounOneBit(ref bitValToInt));
+            ChartMaxZeroBit.Points.Add(GetMaxSingleBitSequence(ref bitValToInt));
+            ChartMaxOneBit.Points.Add(GetMaxZeroBitSequence(ref bitValToInt));
 
         }
 
@@ -268,7 +286,7 @@ namespace KP_SPZ_Sribna
             int result = 0;
             foreach(int a in val)
             {
-                if (a == 0)
+                if (a == 1)
                     result += 1;
             }
             return result;
