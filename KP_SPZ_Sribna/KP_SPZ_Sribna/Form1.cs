@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
+using System.Threading;
 
 //virtualSerialPortDriver
 namespace KP_SPZ_Sribna
@@ -15,6 +16,7 @@ namespace KP_SPZ_Sribna
     public partial class Form1 : Form
     {
         
+        List<byte> buffer = new List<byte>();
         public Form1()
         {
             InitializeComponent();
@@ -22,7 +24,7 @@ namespace KP_SPZ_Sribna
             //SP.PortName = "COM1";
             //SP.Open();
             //nupSizeDataBlock.Value = 256;
-            SP.DataReceived += button1_Click;
+            SP.DataReceived += EventCom;
             cbSelectCOM.Items.AddRange(SerialPort.GetPortNames());//отображаем количество возможных портов
             cbSelectCOM.SelectedIndex = 0;
             cbBoudRate.Items.Add("50");
@@ -54,7 +56,6 @@ namespace KP_SPZ_Sribna
             cbParity.Items.Add("четный");
             cbParity.Items.Add("нечетный");
             cbParity.SelectedIndex = 0;
-
 
             btConnect.Click += (object sender, EventArgs e) =>
             {
@@ -117,6 +118,8 @@ namespace KP_SPZ_Sribna
                     }
                     else SP.StopBits = StopBits.None;
 
+                    SP.ReadBufferSize = Convert.ToInt32(nud_BufferSize.Value);
+
                     BlockControllView(false);
                     SP.Open();
                 }
@@ -151,6 +154,7 @@ namespace KP_SPZ_Sribna
                 }
                 BlockControllView(true);
             };
+
         }
 
         private void BlockControllView(bool val)
@@ -161,16 +165,46 @@ namespace KP_SPZ_Sribna
             cbStopBit.Enabled = val;
             cbBoudRate.Enabled = val;
             btConnect.Enabled = val;
+            nud_BufferSize.Enabled = val;
         }
 
         private void cbSelectCOM_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
+        private void EventCom(object sender, EventArgs e)
+        {
+            SerialPort port = (SerialPort)sender;
+            //for(int i = 0; i < port.ReadBufferSize; i++)
+            //{
+            //    byte
+            //}
+            List<int> val = new List<int>();
+            List<char> vv = new List<char>();
+            string s = port.ReadExisting();
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in Encoding.Unicode.GetBytes(s))
+                sb.Append(Convert.ToString(b, 2));
+            val.Clear();
+            string ass = sb.ToString(); 
+            vv.AddRange(ass.ToCharArray());
+            foreach(char v in vv)
+            {
+                if (v == '0')
+                {
+                    val.Add(0);
+                }
+                else val.Add(1);
+            }
+            //
+            port.Close();
+            BlockControllView(true);
+            MessageBox.Show("Пакет данных успешно принят");
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("lol");
+            
         }
     }
 }

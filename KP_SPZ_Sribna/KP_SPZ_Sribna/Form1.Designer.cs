@@ -40,6 +40,8 @@
             this.btDiconnect = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.cbParity = new System.Windows.Forms.ComboBox();
+            this.nud_BufferSize = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_BufferSize)).BeginInit();
             this.SuspendLayout();
             // 
             // cbSelectCOM
@@ -113,7 +115,7 @@
             // 
             // btConnect
             // 
-            this.btConnect.Location = new System.Drawing.Point(11, 154);
+            this.btConnect.Location = new System.Drawing.Point(11, 190);
             this.btConnect.Name = "btConnect";
             this.btConnect.Size = new System.Drawing.Size(216, 23);
             this.btConnect.TabIndex = 8;
@@ -122,7 +124,7 @@
             // 
             // btDiconnect
             // 
-            this.btDiconnect.Location = new System.Drawing.Point(11, 183);
+            this.btDiconnect.Location = new System.Drawing.Point(11, 219);
             this.btDiconnect.Name = "btDiconnect";
             this.btDiconnect.Size = new System.Drawing.Size(216, 23);
             this.btDiconnect.TabIndex = 9;
@@ -146,11 +148,34 @@
             this.cbParity.Size = new System.Drawing.Size(121, 21);
             this.cbParity.TabIndex = 11;
             // 
+            // nud_BufferSize
+            // 
+            this.nud_BufferSize.Location = new System.Drawing.Point(111, 154);
+            this.nud_BufferSize.Maximum = new decimal(new int[] {
+            256,
+            0,
+            0,
+            0});
+            this.nud_BufferSize.Minimum = new decimal(new int[] {
+            54,
+            0,
+            0,
+            0});
+            this.nud_BufferSize.Name = "nud_BufferSize";
+            this.nud_BufferSize.Size = new System.Drawing.Size(120, 20);
+            this.nud_BufferSize.TabIndex = 12;
+            this.nud_BufferSize.Value = new decimal(new int[] {
+            54,
+            0,
+            0,
+            0});
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(239, 254);
+            this.Controls.Add(this.nud_BufferSize);
             this.Controls.Add(this.cbParity);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btDiconnect);
@@ -165,6 +190,7 @@
             this.Controls.Add(this.cbSelectCOM);
             this.Name = "Form1";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.nud_BufferSize)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -184,6 +210,7 @@
         private System.Windows.Forms.Button btDiconnect;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cbParity;
+        private System.Windows.Forms.NumericUpDown nud_BufferSize;
     }
 }
 
