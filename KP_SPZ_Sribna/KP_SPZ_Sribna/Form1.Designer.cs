@@ -45,7 +45,7 @@
             // cbSelectCOM
             // 
             this.cbSelectCOM.FormattingEnabled = true;
-            this.cbSelectCOM.Location = new System.Drawing.Point(110, 35);
+            this.cbSelectCOM.Location = new System.Drawing.Point(110, 12);
             this.cbSelectCOM.Name = "cbSelectCOM";
             this.cbSelectCOM.Size = new System.Drawing.Size(121, 21);
             this.cbSelectCOM.TabIndex = 0;
@@ -54,7 +54,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 38);
+            this.label1.Location = new System.Drawing.Point(15, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(80, 13);
             this.label1.TabIndex = 1;
@@ -63,7 +63,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 69);
+            this.label2.Location = new System.Drawing.Point(15, 39);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(61, 13);
             this.label2.TabIndex = 2;
@@ -72,7 +72,7 @@
             // cbBoudRate
             // 
             this.cbBoudRate.FormattingEnabled = true;
-            this.cbBoudRate.Location = new System.Drawing.Point(110, 69);
+            this.cbBoudRate.Location = new System.Drawing.Point(110, 39);
             this.cbBoudRate.Name = "cbBoudRate";
             this.cbBoudRate.Size = new System.Drawing.Size(121, 21);
             this.cbBoudRate.TabIndex = 3;
@@ -80,7 +80,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 100);
+            this.label3.Location = new System.Drawing.Point(15, 69);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(84, 13);
             this.label3.TabIndex = 4;
@@ -89,7 +89,7 @@
             // cbByteSize
             // 
             this.cbByteSize.FormattingEnabled = true;
-            this.cbByteSize.Location = new System.Drawing.Point(110, 100);
+            this.cbByteSize.Location = new System.Drawing.Point(110, 69);
             this.cbByteSize.Name = "cbByteSize";
             this.cbByteSize.Size = new System.Drawing.Size(121, 21);
             this.cbByteSize.TabIndex = 5;
@@ -97,7 +97,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 129);
+            this.label4.Location = new System.Drawing.Point(15, 100);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(69, 13);
             this.label4.TabIndex = 6;
@@ -106,14 +106,14 @@
             // cbStopBit
             // 
             this.cbStopBit.FormattingEnabled = true;
-            this.cbStopBit.Location = new System.Drawing.Point(110, 129);
+            this.cbStopBit.Location = new System.Drawing.Point(110, 100);
             this.cbStopBit.Name = "cbStopBit";
             this.cbStopBit.Size = new System.Drawing.Size(121, 21);
             this.cbStopBit.TabIndex = 7;
             // 
             // btConnect
             // 
-            this.btConnect.Location = new System.Drawing.Point(11, 193);
+            this.btConnect.Location = new System.Drawing.Point(11, 154);
             this.btConnect.Name = "btConnect";
             this.btConnect.Size = new System.Drawing.Size(216, 23);
             this.btConnect.TabIndex = 8;
@@ -122,7 +122,7 @@
             // 
             // btDiconnect
             // 
-            this.btDiconnect.Location = new System.Drawing.Point(11, 222);
+            this.btDiconnect.Location = new System.Drawing.Point(11, 183);
             this.btDiconnect.Name = "btDiconnect";
             this.btDiconnect.Size = new System.Drawing.Size(216, 23);
             this.btDiconnect.TabIndex = 9;
@@ -132,7 +132,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 157);
+            this.label5.Location = new System.Drawing.Point(15, 127);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(55, 13);
             this.label5.TabIndex = 10;
@@ -141,7 +141,7 @@
             // cbParity
             // 
             this.cbParity.FormattingEnabled = true;
-            this.cbParity.Location = new System.Drawing.Point(110, 157);
+            this.cbParity.Location = new System.Drawing.Point(110, 127);
             this.cbParity.Name = "cbParity";
             this.cbParity.Size = new System.Drawing.Size(121, 21);
             this.cbParity.TabIndex = 11;
