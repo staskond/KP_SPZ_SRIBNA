@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
 using System.Threading;
+using System.IO;
 
 //virtualSerialPortDriver
 namespace KP_SPZ_Sribna
@@ -207,12 +208,13 @@ namespace KP_SPZ_Sribna
             rtb_string.Append("\nСреднее арифметическое всех бит: ");
             rtb_string.Append(GetAverage(ref bitValToInt).ToString());
             rtb_output.Text = rtb_string.ToString();
+            WriteToFile(ReadDate, tempString , rtb_string.ToString());
             BlockControllView(true);
             MessageBox.Show("Пакет данных успешно принят");
 
         }
 
-        public int GetMaxZeroBitSequence(ref List<int> val)
+        private int GetMaxZeroBitSequence(ref List<int> val)
         {
             int now = 0;
             int max = 1;
@@ -231,7 +233,7 @@ namespace KP_SPZ_Sribna
             return max;
         }
 
-        public int GetMaxSingleBitSequence(ref List<int> val)
+        private int GetMaxSingleBitSequence(ref List<int> val)
         {
             int now = 0;
             int max = 1;
@@ -250,7 +252,7 @@ namespace KP_SPZ_Sribna
             return max;
         }
 
-        public int GetCounZeroBit(ref List<int> val)
+        private int GetCounZeroBit(ref List<int> val)
         {
             int result = 0;
             foreach (int a in val)
@@ -261,7 +263,7 @@ namespace KP_SPZ_Sribna
             return result;
         }
 
-        public int GetCounOneBit(ref List<int> val)
+        private int GetCounOneBit(ref List<int> val)
         {
             int result = 0;
             foreach(int a in val)
@@ -284,6 +286,28 @@ namespace KP_SPZ_Sribna
             return tmp1;
         }
 
+        private void WriteToFile(string originalData, string BitData, string output)
+        {
+            try
+            {
+                using (StreamWriter sw = new StreamWriter("readData.txt", false, System.Text.Encoding.Default))
+                {
+                    sw.Write(originalData);
+                }
+                using (StreamWriter sw = new StreamWriter("bitData.txt", false, System.Text.Encoding.Default))
+                {
+                    sw.Write(BitData);
+                }
+                using (StreamWriter sw = new StreamWriter("output.txt", false, System.Text.Encoding.Default))
+                {
+                    sw.Write(output);
+                }
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
