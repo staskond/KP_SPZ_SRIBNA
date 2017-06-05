@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.cbSelectCOM = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cbBoudRate = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -41,6 +40,12 @@
             this.label5 = new System.Windows.Forms.Label();
             this.cbParity = new System.Windows.Forms.ComboBox();
             this.nud_BufferSize = new System.Windows.Forms.NumericUpDown();
+            this.rtb_DataString = new System.Windows.Forms.RichTextBox();
+            this.rtb_DataBit = new System.Windows.Forms.RichTextBox();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nud_BufferSize)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,15 +57,6 @@
             this.cbSelectCOM.Size = new System.Drawing.Size(121, 21);
             this.cbSelectCOM.TabIndex = 0;
             this.cbSelectCOM.SelectedIndexChanged += new System.EventHandler(this.cbSelectCOM_SelectedIndexChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "№ COM порта:";
             // 
             // label2
             // 
@@ -170,11 +166,67 @@
             0,
             0});
             // 
+            // rtb_DataString
+            // 
+            this.rtb_DataString.Location = new System.Drawing.Point(237, 21);
+            this.rtb_DataString.Name = "rtb_DataString";
+            this.rtb_DataString.Size = new System.Drawing.Size(346, 48);
+            this.rtb_DataString.TabIndex = 13;
+            this.rtb_DataString.Text = "";
+            // 
+            // rtb_DataBit
+            // 
+            this.rtb_DataBit.Location = new System.Drawing.Point(237, 88);
+            this.rtb_DataBit.Name = "rtb_DataBit";
+            this.rtb_DataBit.Size = new System.Drawing.Size(346, 52);
+            this.rtb_DataBit.TabIndex = 14;
+            this.rtb_DataBit.Text = "";
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(237, 150);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(346, 36);
+            this.richTextBox1.TabIndex = 15;
+            this.richTextBox1.Text = "";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(15, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(80, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "№ COM порта:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(237, 5);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(102, 13);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "Принятые данные:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(237, 72);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(211, 13);
+            this.label7.TabIndex = 17;
+            this.label7.Text = "Принятые данные в двоичном формате:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(239, 254);
+            this.ClientSize = new System.Drawing.Size(595, 254);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.rtb_DataBit);
+            this.Controls.Add(this.rtb_DataString);
             this.Controls.Add(this.nud_BufferSize);
             this.Controls.Add(this.cbParity);
             this.Controls.Add(this.label5);
@@ -199,7 +251,6 @@
         #endregion
 
         private System.Windows.Forms.ComboBox cbSelectCOM;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cbBoudRate;
         private System.Windows.Forms.Label label3;
@@ -211,6 +262,12 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cbParity;
         private System.Windows.Forms.NumericUpDown nud_BufferSize;
+        private System.Windows.Forms.RichTextBox rtb_DataString;
+        private System.Windows.Forms.RichTextBox rtb_DataBit;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
     }
 }
 

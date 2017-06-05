@@ -175,32 +175,62 @@ namespace KP_SPZ_Sribna
         private void EventCom(object sender, EventArgs e)
         {
             SerialPort port = (SerialPort)sender;
-            //for(int i = 0; i < port.ReadBufferSize; i++)
-            //{
-            //    byte
-            //}
-            List<int> val = new List<int>();
-            List<char> vv = new List<char>();
-            string s = port.ReadExisting();
+            List<int> bitValToInt = new List<int>();
+            List<char> bitValInCharList = new List<char>();
             StringBuilder sb = new StringBuilder();
-            foreach (byte b in Encoding.Unicode.GetBytes(s))
+            string ReadDate = port.ReadExisting();
+            foreach (byte b in Encoding.Unicode.GetBytes(ReadDate))
                 sb.Append(Convert.ToString(b, 2));
-            val.Clear();
-            string ass = sb.ToString(); 
-            vv.AddRange(ass.ToCharArray());
-            foreach(char v in vv)
+            bitValToInt.Clear();
+            string tempString = sb.ToString(); 
+            bitValInCharList.AddRange(tempString.ToCharArray());
+            foreach(char v in bitValInCharList)
             {
                 if (v == '0')
                 {
-                    val.Add(0);
+                    bitValToInt.Add(0);
                 }
-                else val.Add(1);
+                else bitValToInt.Add(1);
             }
-            //
             port.Close();
+            rtb_DataString.Text = ReadDate;
+            rtb_DataBit.Text = tempString;
             BlockControllView(true);
             MessageBox.Show("Пакет данных успешно принят");
+
         }
+
+        public int GetCounZeroBit(ref List<int> val)
+        {
+            int result = 0;
+            foreach (int a in val)
+            {
+                if (a = 0)
+                    result += 1;
+            }
+            return result;
+        }
+
+        public int GetCounOneBit(ref List<int> val)
+        {
+            int result = 0;
+            foreach(int a in val)
+            {
+                if (a = 0)
+                    result += 1;
+            }
+            return result;
+        }
+        private double GetAverage(ref List <int>val)
+        {
+            int tmp = 0; ;
+            foreach(int a in val)
+            {
+                tmp += a;
+            }
+            return tmp / val.Count;
+        }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
