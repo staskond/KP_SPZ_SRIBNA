@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea13 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend13 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series13 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea14 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend14 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series14 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.cbSelectCOM = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cbBoudRate = new System.Windows.Forms.ComboBox();
@@ -56,6 +56,8 @@
             this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.nud_BufferSize = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.cbreg = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_BufferSize)).BeginInit();
@@ -123,16 +125,16 @@
             // 
             // btConnect
             // 
-            this.btConnect.Location = new System.Drawing.Point(11, 192);
+            this.btConnect.Location = new System.Drawing.Point(11, 200);
             this.btConnect.Name = "btConnect";
-            this.btConnect.Size = new System.Drawing.Size(216, 23);
+            this.btConnect.Size = new System.Drawing.Size(216, 26);
             this.btConnect.TabIndex = 8;
             this.btConnect.Text = "Подключится";
             this.btConnect.UseVisualStyleBackColor = true;
             // 
             // btDiconnect
             // 
-            this.btDiconnect.Location = new System.Drawing.Point(11, 221);
+            this.btDiconnect.Location = new System.Drawing.Point(11, 232);
             this.btDiconnect.Name = "btDiconnect";
             this.btDiconnect.Size = new System.Drawing.Size(216, 21);
             this.btDiconnect.TabIndex = 9;
@@ -176,7 +178,7 @@
             // 
             this.rtb_output.Location = new System.Drawing.Point(237, 170);
             this.rtb_output.Name = "rtb_output";
-            this.rtb_output.Size = new System.Drawing.Size(346, 72);
+            this.rtb_output.Size = new System.Drawing.Size(346, 83);
             this.rtb_output.TabIndex = 15;
             this.rtb_output.Text = "";
             // 
@@ -218,39 +220,39 @@
             // 
             // chart1
             // 
-            chartArea13.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea13);
-            legend13.Name = "Legend1";
-            this.chart1.Legends.Add(legend13);
-            this.chart1.Location = new System.Drawing.Point(11, 256);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(11, 276);
             this.chart1.Name = "chart1";
-            series13.ChartArea = "ChartArea1";
-            series13.Legend = "Legend1";
-            series13.Name = "Series1";
-            this.chart1.Series.Add(series13);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(272, 221);
             this.chart1.TabIndex = 20;
             this.chart1.Text = "chart1";
             // 
             // chart2
             // 
-            chartArea14.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea14);
-            legend14.Name = "Legend1";
-            this.chart2.Legends.Add(legend14);
-            this.chart2.Location = new System.Drawing.Point(315, 256);
+            chartArea2.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart2.Legends.Add(legend2);
+            this.chart2.Location = new System.Drawing.Point(315, 276);
             this.chart2.Name = "chart2";
-            series14.ChartArea = "ChartArea1";
-            series14.Legend = "Legend1";
-            series14.Name = "Series1";
-            this.chart2.Series.Add(series14);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart2.Series.Add(series2);
             this.chart2.Size = new System.Drawing.Size(268, 221);
             this.chart2.TabIndex = 21;
             this.chart2.Text = "chart2";
             // 
             // nud_BufferSize
             // 
-            this.nud_BufferSize.Location = new System.Drawing.Point(111, 154);
+            this.nud_BufferSize.Location = new System.Drawing.Point(112, 152);
             this.nud_BufferSize.Maximum = new decimal(new int[] {
             256,
             0,
@@ -279,11 +281,30 @@
             this.label9.TabIndex = 23;
             this.label9.Text = "Блок данных: ";
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(15, 173);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(48, 13);
+            this.label10.TabIndex = 24;
+            this.label10.Text = "Режим: ";
+            // 
+            // cbreg
+            // 
+            this.cbreg.FormattingEnabled = true;
+            this.cbreg.Location = new System.Drawing.Point(111, 173);
+            this.cbreg.Name = "cbreg";
+            this.cbreg.Size = new System.Drawing.Size(121, 21);
+            this.cbreg.TabIndex = 25;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(589, 489);
+            this.ClientSize = new System.Drawing.Size(588, 509);
+            this.Controls.Add(this.cbreg);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.nud_BufferSize);
             this.Controls.Add(this.chart2);
@@ -340,6 +361,8 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
         private System.Windows.Forms.NumericUpDown nud_BufferSize;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox cbreg;
     }
 }
 

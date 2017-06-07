@@ -36,6 +36,10 @@ namespace KP_SPZ_Sribna
             ChartMaxOneBit = this.chart2.Series.Add("Max seq one bits.");
             ChartMaxZeroBit = this.chart2.Series.Add("Max Seq zero bits.");
 
+            cbreg.Items.Add("Строка");
+            cbreg.Items.Add("Буффер");
+            cbreg.SelectedIndex = 0;
+
             cbSelectCOM.Items.AddRange(SerialPort.GetPortNames());//добавляем возможные порты в comboBox
             cbSelectCOM.SelectedIndex = 0;//устанавливаем индекс элемента по умолчанию
             //поштучно добавляем все элементы в comboBox предназначенный для выбора скорости передачи
@@ -175,6 +179,7 @@ namespace KP_SPZ_Sribna
             cbBoudRate.Enabled = val;
             btConnect.Enabled = val;
             nud_BufferSize.Enabled = val;
+            cbreg.Enabled = val;
         }
 
         private void cbSelectCOM_SelectedIndexChanged(object sender, EventArgs e)
@@ -186,11 +191,16 @@ namespace KP_SPZ_Sribna
             try
             {
                 #region readData
+                string ReadData = "";
                 SerialPort port = (SerialPort)sender;//копируем данные из отправителя
                 List<int> bitValToInt = new List<int>();//коллекция интов для хранения всех битовых значений
                 List<char> bitValInCharList = new List<char>();//коллекция чаров для хранения данных переведенных из строки в битовом формате
                 StringBuilder sb = new StringBuilder();
-                string ReadData = port.ReadExisting();//считываем данные пришедшие в порт
+                if (cbreg.Text.Equals("Строка"))
+                {
+                    ReadData = port.ReadLine();//port.ReadExisting();//считываем данные пришедшие в порт
+                }
+                else ReadData = port.ReadExisting();
                 if (ReadData.Length > nud_BufferSize.Value)//проверяем, если количество символов в пришедшей стоке больше чем максимальный размер пакета
                 {
                     ReadData = ReadData.Substring(0, Convert.ToInt32(nud_BufferSize.Value));//то обрезаем строку
